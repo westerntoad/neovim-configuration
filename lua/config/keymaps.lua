@@ -10,6 +10,9 @@ vim.keymap.set('t', '<esc>', '<C-\\><C-N>')
 
 
 local Terminal  = require('toggleterm.terminal').Terminal
+
+
+
 local lazygit = Terminal:new({
   cmd = "lazygit",
   dir = "git_dir",
@@ -19,7 +22,6 @@ local lazygit = Terminal:new({
     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
   end,
 })
-
 function _lazygit_toggle()
   lazygit:toggle()
 end
@@ -43,8 +45,10 @@ wk.register({
   -- Telescope keymaps
   ["<leader>f"] = { name = "+file" },
   ["<leader>fb"] = { "<cmd>Telescope file_browser<cr>", "File Browser" },
-  ["<leader>ft"] = { "<cmd>Telescope buffers<cr><esc>", "Find Tab-Buffers" },
+  ["<leader>ft"] = { "<cmd>Telescope buffers<cr>", "Find Tab-Buffers" },
   ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   ["<leader>fg"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
   ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+  -- compiling code
+  ["<leader>c"] = { name = "+compile" },
 })
