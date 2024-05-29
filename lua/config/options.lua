@@ -2,6 +2,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- persistent undo
+vim.opt.undofile = true
 
 -- indent and tab settings
 vim.opt.shiftwidth = 4
