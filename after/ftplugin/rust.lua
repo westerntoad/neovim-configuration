@@ -60,9 +60,25 @@ function _cargo_check_toggle()
     cargo_check:toggle()
 end
 
+local cargo_bench = Terminal:new({
+    cmd = "cargo bench",
+    direction = "tab",
+    close_on_exit = false,
+    on_open = function(term)
+        vim.cmd("stopinsert")
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "s", "<cmd>wincmd k<CR>", {noremap = true, silent = true})
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>bd!<CR>", {noremap = true, silent = true})
+        vim.opt_local.laststatus = 0
+    end,
+})
+function _cargo_bench_toggle()
+    cargo_bench:toggle()
+end
+
 local wk = require "which-key"
 
 wk.register({
+  ["<leader>cb"] = { "<cmd>:update<cr><cmd>lua _cargo_bench_toggle()<cr>", "Bench Cargo Project" },
   ["<leader>cc"] = { "<cmd>:update<cr><cmd>lua _cargo_check_toggle()<cr>", "Check Cargo Project" },
   ["<leader>cf"] = { "<cmd>:update<cr><cmd>lua _compile_rust_toggle()<cr>", "Compile & Run Singular Rust File" },
   ["<leader>cr"] = { "<cmd>:update<cr><cmd>lua _cargo_run_toggle()<cr>", "Run Cargo Project" },

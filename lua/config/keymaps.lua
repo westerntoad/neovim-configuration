@@ -1,10 +1,12 @@
 -- tab movement
-vim.keymap.set("n", "<S-l>", "<cmd>:BufferLineCycleNext<cr>")		-- next tab
-vim.keymap.set("n", "<S-h>", "<cmd>:BufferLineCyclePrev<cr>")		-- previous tab
+vim.keymap.set("n", "<S-l>", "<cmd>:tabnext<cr>")		-- next tab
+vim.keymap.set("n", "<S-h>", "<cmd>:tabprev<cr>")		-- previous tab
 
 -- leave terminal mode
 vim.keymap.set('t', '<esc>', '<C-\\><C-N>')
 
+-- toggle search highlighting
+vim.keymap.set('n', '<F3>', "<cmd>:set hlsearch!<cr>", opts)
 
 -- terminal movement
 vim.keymap.set('n', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
@@ -51,27 +53,32 @@ end
 local wk = require "which-key"
 
 wk.register({
-  -- terminal junk
-  ["<leader>t"] = { name = "+terminal" },
-  ["<leader>tt"] = { "<cmd>ToggleTerm direction=tab<cr>", "New Terminal" },
-  -- lazygit
-  ["<leader>g"] = { "<cmd>lua _lazygit_toggle()<cr>", "Open LazyGit" },
-  -- new files
-  ["<leader>n"] = { name = "+new" },
-  ["<leader>nt"] = { "<cmd>:tabnew<cr>", "New Tab" },
-  ["<leader>nf"] = { "<cmd>:tabnew|Telescope find_files<cr>", "New Tab From File" },
-  ["<leader>q"] = { "<cmd>:bd<cr>", "Close Tab" },
+  -- compiling code
+  ["<leader>c"] = { name = "+compile" },
   -- Telescope keymaps
   ["<leader>f"] = { name = "+file" },
   ["<leader>fb"] = { "<cmd>Telescope file_browser<cr>", "File Browser" },
   ["<leader>ft"] = { "<cmd>Telescope buffers<cr>", "Find Tab-Buffers" },
   ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   ["<leader>fg"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+  -- lazygit
+  ["<leader>g"] = { "<cmd>lua _lazygit_toggle()<cr>", "Open LazyGit" },
+  -- new files
+  ["<leader>n"] = { name = "+new" },
+  ["<leader>nt"] = { "<cmd>:tabnew<cr>", "New Tab" },
+  ["<leader>nf"] = { "<cmd>:tabnew|Telescope find_files<cr>", "New Tab From File" },
+  ["<leader>q"] = { "<cmd>:bd!<cr>", "Close Tab" },
+  -- terminal
+  ["<leader>t"] = { name = "+terminal" },
+  ["<leader>tt"] = { "<cmd>ToggleTerm direction=tab<cr>", "New Terminal" },
   ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-  -- compiling code
-  ["<leader>c"] = { name = "+compile" },
+  -- terminal
+  ["T"] = { "<cmd>tabnew<cr>", "New Tab" },
   -- saving
   ["<leader>w"] = { name = "+write" },
-  ["<leader>wq"] = { "<cmd>update<cr><cmd>q<cr>", "Save and Close File" },
+  ["<leader>wq"] = { "<cmd>update<cr><cmd>q!<cr>", "Save and Close File" },
   ["<leader>ww"] = { "<cmd>update<cr>", "Save File" }, 
+  -- panes
+  ["<leader>p"] = { name = "+pane" },
+  ["<leader>wq"] = { "<cmd>update<cr><cmd>q!<cr>", "Save and Close File" },
 })
