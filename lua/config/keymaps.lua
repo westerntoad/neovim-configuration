@@ -2,6 +2,10 @@
 vim.keymap.set("n", "<S-l>", "<cmd>:tabnext<cr>")		-- next tab
 vim.keymap.set("n", "<S-h>", "<cmd>:tabprev<cr>")		-- previous tab
 
+-- buffer movement
+vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>")
+vim.keymap.set("n", "<S-Tab>", "<cmd>bprev<cr>")
+
 -- leave terminal mode
 vim.keymap.set('t', '<esc>', '<C-\\><C-N>')
 
@@ -52,26 +56,30 @@ end
 
 local wk = require "which-key"
 
+local ps1command = "export PS1=\"\\W \\e[32m\\$\\e[0m \""
+
 wk.register({
   -- compiling code
   ["<leader>c"] = { name = "+compile" },
   -- Telescope keymaps
   ["<leader>f"] = { name = "+file" },
   ["<leader>fb"] = { "<cmd>Telescope file_browser<cr>", "File Browser" },
-  ["<leader>ft"] = { "<cmd>Telescope buffers<cr>", "Find Tab-Buffers" },
   ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
   ["<leader>fg"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+  ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+  ["<leader>ft"] = { "<cmd>Telescope buffers<cr>", "Find Tab-Buffers" },
   -- lazygit
   ["<leader>g"] = { "<cmd>lua _lazygit_toggle()<cr>", "Open LazyGit" },
   -- new files
   ["<leader>n"] = { name = "+new" },
   ["<leader>nt"] = { "<cmd>:tabnew<cr>", "New Tab" },
   ["<leader>nf"] = { "<cmd>:tabnew|Telescope find_files<cr>", "New Tab From File" },
-  ["<leader>q"] = { "<cmd>:bd!<cr>", "Close Tab" },
+  ["<leader>q"] = { "<cmd>:bd<cr>", "Close Buffer" },
+  ["<leader>Q"] = { "<cmd>:tabc<cr>", "Close Tab" },
   -- terminal
   ["<leader>t"] = { name = "+terminal" },
   ["<leader>tt"] = { "<cmd>ToggleTerm direction=tab<cr>", "New Terminal" },
-  ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+  ["<leader>tv"] = { "<C-w>v40<C-w>><C-w><C-l><cmd>term<cr>" .. ps1command .. "<cr><C-l>", "split vertical" },
   -- terminal
   ["T"] = { "<cmd>tabnew<cr>", "New Tab" },
   -- saving
@@ -80,5 +88,4 @@ wk.register({
   ["<leader>ww"] = { "<cmd>update<cr>", "Save File" }, 
   -- panes
   ["<leader>p"] = { name = "+pane" },
-  ["<leader>wq"] = { "<cmd>update<cr><cmd>q!<cr>", "Save and Close File" },
 })
